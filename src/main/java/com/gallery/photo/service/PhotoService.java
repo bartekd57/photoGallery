@@ -19,7 +19,7 @@ public class PhotoService {
         this.photoRepository = photoRepository;
     }
 
-    public void appNewPhoto(@RequestParam String name, @RequestParam String imgUrl, @RequestParam Gallery gallery){
+    public void appNewPhoto(String name,String imgUrl, Gallery gallery){
 
         PhotoDTO photoDTO = new PhotoDTO();
 

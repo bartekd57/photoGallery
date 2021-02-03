@@ -27,7 +27,7 @@ public class GalleryService {
     }
 
 
-    public void createNewGallery(@RequestParam String name, @RequestBody User user) {
+    public void createNewGallery( String name,  User user) {
         GalleryDTO galleryDTO = new GalleryDTO();
 
         galleryDTO.setGalleryName(name);
@@ -39,7 +39,7 @@ public class GalleryService {
 
     }
 
-    public void addPhotoToGallery(@RequestParam Photo photo, @RequestParam Gallery gallery) {
+    public void addPhotoToGallery(Photo photo,Gallery gallery) {
 
         List<Photo> photos = gallery.getPhotos();
         photos.add(photo);
