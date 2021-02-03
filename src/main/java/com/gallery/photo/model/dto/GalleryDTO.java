@@ -12,6 +12,7 @@ public class GalleryDTO {
     private String galleryName;
     private User user;
     private List<Photo> photos = new ArrayList<>();
+//    cos sosdssos
 
     public GalleryDTO() {
     }
