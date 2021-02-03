@@ -9,4 +9,5 @@ public interface GalleryRepository extends JpaRepository<Gallery,Long> {
 
 
 
+
 }
