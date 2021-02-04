@@ -1,4 +1,4 @@
-package com.gallery.photo.configuration.jwt;
+package com.gallery.photo.security.token;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

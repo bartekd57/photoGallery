@@ -1,4 +1,4 @@
-package com.gallery.photo.configuration.jwt;
+package com.gallery.photo.security.token;
 
 import com.gallery.photo.service.GalleryUser;
 import io.jsonwebtoken.*;
