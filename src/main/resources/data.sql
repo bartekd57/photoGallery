@@ -2,9 +2,8 @@ INSERT INTO roles (name) VALUES ('ROLE_USER');
 INSERT INTO roles (name) VALUES ('ROLE_ADMIN');
 
 INSERT INTO users (username, email, password, gallery_id) VALUES
-('adminek', 'adminek@gmail.com', 'pass1', 1),
-('firstUser', 'firstuser@gmail.com', 'pass2', 2),
-('secondUser', 'seconduser@gmail.com', 'pass3', 3);
+('firstUser', 'firstuser@gmail.com', 'pass1', 1),
+('secondUser', 'seconduser@gmail.com', 'pass2', 2);
 
 INSERT INTO users_roles (user_id, roles_id) VALUES (1, 1);
 INSERT INTO users_roles (user_id, roles_id) VALUES (1, 2);

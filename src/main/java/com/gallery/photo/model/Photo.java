@@ -28,6 +28,12 @@ public class Photo {
         this.gallery = gallery;
     }
 
+    public Photo(String photoName, String imgUrl, Gallery gallery) {
+        this.photoName = photoName;
+        this.imgUrl = imgUrl;
+        this.gallery = gallery;
+    }
+
     public Long getId() {
         return id;
     }
@@ -58,6 +64,14 @@ public class Photo {
 
     public void setGallery(Gallery gallery) {
         this.gallery = gallery;
+    }
+
+
+    @Transient
+    public String getPhotosImagePath() {
+        if (imgUrl == null || id == null) return null;
+
+        return "/user-photos/" + id + "/" + imgUrl;
     }
 
     @Override

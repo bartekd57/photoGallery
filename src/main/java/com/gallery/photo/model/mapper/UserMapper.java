@@ -1,7 +1,7 @@
 package com.gallery.photo.model.mapper;
 
 import com.gallery.photo.model.User;
-import com.gallery.photo.security.DTO.UserDTO;
+import com.gallery.photo.model.dto.UserDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
