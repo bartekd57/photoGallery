@@ -25,9 +25,11 @@ public class User {
     private String email;
 
     @ManyToMany
-    private Set<Role> roles; //zastanawiajace czy to powinno byc pole pojedyńcze czy jednak zbiór rół
+    private Set<Role> roles;
 
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "gallery_id")
+    private Gallery gallery;
 
     public User() {
     }

@@ -12,7 +12,8 @@ public class Photo {
     private Long id;
     private String photoName;
     private String imgUrl;
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "gallery_id")
     private Gallery gallery;
 

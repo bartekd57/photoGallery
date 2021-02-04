@@ -1,7 +1,8 @@
-package com.gallery.photo.configuration.security;
+package com.gallery.photo.security;
 
-import com.gallery.photo.configuration.jwt.JwtAuthEntryPoint;
-import com.gallery.photo.configuration.jwt.JwtAuthTokenFilter;
+
+import com.gallery.photo.security.token.JwtAuthEntryPoint;
+import com.gallery.photo.security.token.JwtAuthTokenFilter;
 import com.gallery.photo.service.GalleryUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true) // co to jest?
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -54,8 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/signUp").permitAll()
-                .antMatchers("/signin").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/login").permitAll()
+                .anyRequest().permitAll()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
                 .and()

@@ -1,5 +1,9 @@
 package com.gallery.photo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +15,18 @@ public class Gallery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String galleryName;
-    @OneToOne
+
+    @OneToOne(mappedBy = "gallery", cascade = CascadeType.ALL)
+    @JsonIgnore
     private User user;
-    @OneToMany(mappedBy = "gallery")
+
+    @OneToMany(mappedBy = "gallery", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
     private List<Photo> photos = new ArrayList<>();
+
 
     public Long getId() {
         return id;
