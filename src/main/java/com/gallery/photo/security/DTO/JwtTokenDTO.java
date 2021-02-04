@@ -1,11 +1,12 @@
 package com.gallery.photo.security.DTO;
 
-public class JwtDTO {
+public class JwtTokenDTO {
+
     private String token;
     private String type = "Bearer";
 
-    public JwtDTO(String token) {
-        this.token = token;
+    public JwtTokenDTO(String accessToken) {
+        this.token = accessToken;
     }
 
     public String getToken() {
@@ -23,4 +24,7 @@ public class JwtDTO {
     public void setType(String type) {
         this.type = type;
     }
+
+
+
 }

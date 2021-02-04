@@ -34,12 +34,13 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password, String email, Set<Role> roles) {
+    public User(Long id, String username, String password, String email, Set<Role> roles, Gallery gallery) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.roles = roles;
+        this.gallery = gallery;
     }
 
     public User(@NotBlank String username, @NotBlank @Size(min = 5) String password, @Email String email) {
@@ -54,6 +55,16 @@ public class User {
         this.email = email;
         this.roles = roles;
     }
+
+    public User(@NotBlank String username, @NotBlank @Size(min = 5) String password, @Email String email, Set<Role> roles, Gallery gallery) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
+        this.gallery = gallery;
+    }
+
+
 
     public String getEmail() {
         return email;
@@ -93,6 +104,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Gallery getGallery() {
+        return gallery;
+    }
+
+    public void setGallery(Gallery gallery) {
+        this.gallery = gallery;
     }
 
 

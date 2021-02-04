@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>MainPage</title>
+    <meta name="description" content="Najlepsza agencja podróżnicza"/>
+    <meta name="keywords" content="spędź z nami super wakacje"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+</head>
+
+<body>
+
+<h1> Witaj: ${userName} </h1>
+<h2>Data Twoich odwiedzin: ${dateTime}</h2>
+<h2>Witryna została odwiedzona ${visitCount} razy! </h2>
+
+<div style="margin: auto; width: 500px; padding-top: 50px">
+    <form action="#" th:action="@{|/register|}" method="post" enctype="multipart/form-data">
+
+        <div class="searchBox">
+            <label>Username</label>
+            <input type="text" id="username" name="username">
+        </div>
+
+        <div class="searchBox">
+            <label>Password</label>
+            <input type="text" id="password" name="password">
+        </div>
+
+        <label>Photos: </label>
+        <input type="file" name="image" accept="image/png, image/jpeg" />
+
+        <button class="button button1">Login</button>
+    </form>
+</div>
+
+
+
+
+</body>
+
+</html>

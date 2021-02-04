@@ -3,7 +3,7 @@ package com.gallery.photo.service;
 import com.gallery.photo.model.User;
 import com.gallery.photo.model.mapper.UserMapper;
 import com.gallery.photo.repository.UserRepository;
-import com.gallery.photo.security.DTO.UserDTO;
+import com.gallery.photo.model.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
