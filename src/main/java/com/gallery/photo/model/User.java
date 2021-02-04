@@ -24,7 +24,7 @@ public class User {
     @Email
     private String email;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Role> roles;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -46,6 +46,13 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+    }
+
+    public User(@NotBlank String username, @NotBlank @Size(min = 5) String password, @Email String email, Set<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
     }
 
     public String getEmail() {
