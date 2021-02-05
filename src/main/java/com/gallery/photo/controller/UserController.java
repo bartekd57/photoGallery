@@ -7,7 +7,6 @@ import com.gallery.photo.model.dto.UserDTO;
 import com.gallery.photo.repository.GalleryRepository;
 import com.gallery.photo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +30,7 @@ public class UserController {
         this.galleryRepository = galleryRepository;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/users")
     public String users(Model model) {
         List<UserDTO> users = userService.getAllUsers().stream()
