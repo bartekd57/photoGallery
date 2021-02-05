@@ -1,5 +1,6 @@
 package com.gallery.photo.controller;
 
+import com.gallery.photo.model.RoleName;
 import com.gallery.photo.model.User;
 import com.gallery.photo.model.dto.UserDTO;
 import com.gallery.photo.security.DTO.JwtTokenDTO;
@@ -83,6 +84,8 @@ public class LoginController {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("imgUrl", user.getGallery().getPhotos().stream().findFirst().map(photo -> photo.getImgUrl()).get());
 
+
+        if(userDTO.getRoles().contains(RoleName.ROLE_ADMIN)) return "redirect:/users";
 
         return "photos";
 
