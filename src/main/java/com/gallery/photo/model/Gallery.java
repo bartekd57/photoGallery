@@ -24,6 +24,7 @@ public class Gallery {
 
     private String galleryName;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "gallery", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
 
@@ -31,6 +32,19 @@ public class Gallery {
     @JsonIgnore
     private List<Photo> photos = new ArrayList<>();
 
+    public Gallery(Long id, String galleryName, User user, List<Photo> photos) {
+        this.id = id;
+        this.galleryName = galleryName;
+        this.user = user;
+        this.photos = photos;
+    }
+
+    public Gallery(String galleryName) {
+        this.galleryName = galleryName;
+    }
+
+    public Gallery() {
+    }
 
     public Long getId() {
         return id;

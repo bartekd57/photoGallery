@@ -18,16 +18,16 @@ public class User {
     private String username;
 
     @NotBlank
-    @Size(min = 5)
+    @Size(min = 3)
     private String password;
 
     @Email
     private String email;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "gallery_id")
     private Gallery gallery;
 
@@ -57,6 +57,14 @@ public class User {
     }
 
     public User(@NotBlank String username, @NotBlank @Size(min = 5) String password, @Email String email, Set<Role> roles, Gallery gallery) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
+        this.gallery = gallery;
+    }
+
+    public User(@NotBlank String username, @Email String email, Set<Role> roles) {
         this.username = username;
         this.password = password;
         this.email = email;

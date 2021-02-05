@@ -3,9 +3,6 @@ package com.gallery.photo.controller;
 import com.gallery.photo.model.Gallery;
 import com.gallery.photo.model.Photo;
 import com.gallery.photo.model.dto.UserDTO;
-import com.gallery.photo.repository.RoleRepository;
-import com.gallery.photo.repository.UserRepository;
-import com.gallery.photo.security.service.RoleService;
 import com.gallery.photo.service.UserService;
 import com.gallery.photo.utils.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,19 +26,12 @@ import java.util.Objects;
 public class RegisterController {
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private UserService userService;
 
     @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private RoleService roleService;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    private int count;
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute UserDTO userDTO, Model model, @RequestParam("image") MultipartFile multipartFile) throws IOException {
@@ -79,7 +70,7 @@ public class RegisterController {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
 
         List<Photo> photos = new ArrayList<>();
-        userDTO.setGallery(new Gallery());
+        userDTO.setGallery(new Gallery("gallery" + userDTO.getId()));
 
         userDTO.getGallery().setPhotos(photos);
 
@@ -100,6 +91,8 @@ public class RegisterController {
     public String register(Model model) {
 
         model.addAttribute("user", new UserDTO());
+        model.addAttribute("dateTime", LocalDateTime.now());
+        model.addAttribute("visitCount", ++count);
         return "register";
     }
 
