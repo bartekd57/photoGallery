@@ -18,28 +18,29 @@ public class User {
     private String username;
 
     @NotBlank
-    @Size(min = 5)
+    @Size(min = 3)
     private String password;
 
     @Email
     private String email;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "gallery_id")
     private Gallery gallery;
 
     public User() {
     }
 
-    public User(Long id, String username, String password, String email, Set<Role> roles) {
+    public User(Long id, String username, String password, String email, Set<Role> roles, Gallery gallery) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.roles = roles;
+        this.gallery = gallery;
     }
 
     public User(@NotBlank String username, @NotBlank @Size(min = 5) String password, @Email String email) {
@@ -47,6 +48,31 @@ public class User {
         this.password = password;
         this.email = email;
     }
+
+    public User(@NotBlank String username, @NotBlank @Size(min = 5) String password, @Email String email, Set<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
+    }
+
+    public User(@NotBlank String username, @NotBlank @Size(min = 5) String password, @Email String email, Set<Role> roles, Gallery gallery) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
+        this.gallery = gallery;
+    }
+
+    public User(@NotBlank String username, @Email String email, Set<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
+        this.gallery = gallery;
+    }
+
+
 
     public String getEmail() {
         return email;
@@ -86,6 +112,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Gallery getGallery() {
+        return gallery;
+    }
+
+    public void setGallery(Gallery gallery) {
+        this.gallery = gallery;
     }
 
 

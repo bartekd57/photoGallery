@@ -1,9 +1,11 @@
 package com.gallery.photo.controller;
 
-import com.gallery.photo.message.request.LoginDTO;
-import com.gallery.photo.message.response.JwtTokenDTO;
-import com.gallery.photo.security.DTO.UserDTO;
+import com.gallery.photo.model.User;
+import com.gallery.photo.model.dto.UserDTO;
+import com.gallery.photo.security.DTO.JwtTokenDTO;
+import com.gallery.photo.security.DTO.LoginDTO;
 import com.gallery.photo.security.token.JwtProvider;
+import com.gallery.photo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +28,19 @@ public class LoginController {
 
     JwtProvider provider;
     AuthenticationManager manager;
+    UserService userService;
 
     @Autowired
-    public LoginController(JwtProvider provider, AuthenticationManager manager) {
+    public LoginController(JwtProvider provider, AuthenticationManager manager, UserService userService) {
         this.provider = provider;
         this.manager = manager;
+        this.userService = userService;
+    }
+
+    @GetMapping(value = "/login")
+    public String loginGet(Model model) {
+        model.addAttribute("user", new UserDTO());
+        return "login";
     }
 
     @ResponseBody
@@ -49,22 +59,34 @@ public class LoginController {
     }
 
     @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public String login(@ModelAttribute("user") LoginDTO loginDTO, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+    public String login(@ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         Authentication authentication = manager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginDTO.getUsername(),
-                        loginDTO.getPassword() )
+                        userDTO.getUsername(),
+                        userDTO.getPassword() )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = provider.generateToken(authentication);
-        redirectAttributes.addFlashAttribute("user", loginDTO);
-        return "redirect:/";
+        redirectAttributes.addFlashAttribute("user", userDTO);
+        return "redirect:/photos";
     }
 
-    @GetMapping(value = "/login")
-    public String loginGet(Model model) {
-        model.addAttribute("user", new UserDTO());
-        return "login";
+    @GetMapping(value = "/photos")
+    public String pictures(@ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult, Model model) throws Exception {
+
+//        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userService.getUserByUsername(userDTO.getUsername());
+
+        model.addAttribute("photos", user.getGallery().getPhotos());
+        model.addAttribute("galleryId", user.getGallery().getId());
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("imgUrl", user.getGallery().getPhotos().stream().findFirst().map(photo -> photo.getImgUrl()).get());
+
+
+        return "photos";
+
+
     }
 
 }

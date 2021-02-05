@@ -1,10 +1,16 @@
 package com.gallery.photo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,15 +24,27 @@ public class Gallery {
 
     private String galleryName;
 
-    @OneToOne(mappedBy = "gallery", cascade = CascadeType.ALL)
     @JsonIgnore
+    @OneToOne(mappedBy = "gallery", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
 
-    @OneToMany(mappedBy = "gallery", cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "gallery", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Photo> photos = new ArrayList<>();
 
+    public Gallery(Long id, String galleryName, User user, List<Photo> photos) {
+        this.id = id;
+        this.galleryName = galleryName;
+        this.user = user;
+        this.photos = photos;
+    }
+
+    public Gallery(String galleryName) {
+        this.galleryName = galleryName;
+    }
+
+    public Gallery() {
+    }
 
     public Long getId() {
         return id;
