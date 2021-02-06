@@ -26,6 +26,15 @@
                 <a href="#" th:href="@{|/userGallery/${user.id}|}">
                     <button class="button button2">Go to gallery!</button></a>
             </td>
+            <td>
+                <form action="#" th:action="@{|/addPhoto|}" method="post" enctype="multipart/form-data">
+
+                    <label>Photos: </label>
+                    <input type="file" name="image" accept="image/png, image/jpeg" />
+
+                    <button class="button button1">Dodaj zdjęcie!</button>
+                </form>
+            </td>
         </tr>
 
     </table>

@@ -79,7 +79,7 @@ public class LoginController {
 
         String targetUrl = "";
         if(role.contains("ADMIN")) {
-            targetUrl = "redirect:/userso";
+            targetUrl = "redirect:/users";
         } else if(role.contains("USER")) {
             targetUrl = "redirect:/photos";
         }
