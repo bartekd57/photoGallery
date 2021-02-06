@@ -6,31 +6,40 @@
     <meta name="description" content="Najlepsza agencja podróżnicza"/>
     <meta name="keywords" content="spędź z nami super wakacje"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{css/style.css}" type="text/css"/>
 
 </head>
 
 <body>
 
 
-<!--<div class="photosList" style="sociallink"  th:each="photo : ${photos}" >-->
-<!--    <img th:src="/@{${photo.imgUrl}}"  class="photos" th:text="${photo.imgUrl}" />-->
-<!--        imgUrl-->
-<!--        <div class="photoName" th:text="${photo.photoName}">-->
-<!--            Photo Name</div></a>-->
-<!--</div>-->
 
-<div th:text="|Imie usera:   ${username}|" > imie usera
+<div class="bigTitle">
+<div class="title" th:text="|Autor galerii:   ${username}|" > imie usera
 </div>
 
-<div th:text="|Id galerii:   ${galleryId}|" > id galerii
+<div class="title" th:text="|Index galerii:   ${galleryId}|" > id galerii
 </div>
+</div>
+<div class="photoTable" th:each="photo : ${photos}">
 
-<div th:each="photo : ${photos}">
 
-<!--    <img th:src="@{|/user-photos/agency.jpeg|}" src="/src/main/resources/static/img/agency.jpeg" alt="photo"/>-->
-    <img th:src="@{|/user-photos/${photo.imgUrl}|}" src="#" alt="photo"/>
-<!--    <img th:src="@{|/user-photos/${photo.getImgUrl()}|}" src="/src/main/resources/static/img/agency.jpeg" alt="photo"/>-->
-<!--    <img th:src="@{|/user-photos/${imgUrl}|}" src="/src/main/resources/static/img/agency.jpeg" alt="photo"/>-->
+
+
+    <table class="table table2">
+        <tr>
+            <div class="image"> <img class="cropped" th:src="@{|/user-photos/${photo.imgUrl}|}" src="#" alt="photo"/></div>
+            <div class="subtitle">
+                <p th:text = "${photo.photoName}"></p>
+            </div>
+
+        </tr>
+
+
+
+    </table>
+
+
 
 </div>
 
