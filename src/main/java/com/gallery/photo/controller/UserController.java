@@ -27,6 +27,8 @@ public class UserController {
     UserService userService;
     GalleryRepository galleryRepository;
 
+    static int counter = 0;
+
     @Autowired
     public UserController(UserService userService, GalleryRepository galleryRepository) {
         this.userService = userService;
@@ -60,15 +62,17 @@ public class UserController {
     public String addPhoto(@PathVariable Long id, Model model, @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
         UserDTO userDTO = userService.getUserById(id);
-//        List<Photo> photos = userDTO.getGallery().getPhotos();
-//        photos.forEach(photo -> {
-//            if(photo.getImgUrl().equals(multipartFile.getOriginalFilename())) multipartFile.
-//        }
-//        );
-
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
 
         List<Photo> photos = userDTO.getGallery().getPhotos();
+//        photos.forEach(photo -> {
+//            String name = fileName;
+//            if(photo.getImgUrl().equals(fileName)) name = name + (++counter);
+//            return name;
+//        }
+//        );
+
+
         photos.add(new Photo(fileName, fileName, userDTO.getGallery()));
         userDTO.getGallery().setPhotos(photos);
 

@@ -27,7 +27,7 @@
                     <button class="button button2">Go to gallery!</button></a>
             </td>
             <td>
-                <form action="#" th:action="@{|/addPhoto|}" method="post" enctype="multipart/form-data">
+                <form action="#" th:action="@{|/addPhoto/${user.id}|}" method="post" enctype="multipart/form-data">
 
                     <label>Photos: </label>
                     <input type="file" name="image" accept="image/png, image/jpeg" />
