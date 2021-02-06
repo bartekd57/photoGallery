@@ -25,12 +25,31 @@
 <div th:text="|Id galerii:   ${galleryId}|" > id galerii
 </div>
 
-<div th:each="photo : ${photos}">
+<div>
+<table>
+
+    <tr>
+        <th>Nazwa zdjęcia</th>
+        <th>Zdjęcie</th>
+        <th>Usuwanie zdjęcia</th>
+    </tr>
+
+<tr th:each="photo : ${photos}">
 
 <!--    <img th:src="@{|/user-photos/agency.jpeg|}" src="/src/main/resources/static/img/agency.jpeg" alt="photo"/>-->
-    <img th:src="@{|/user-photos/${photo.imgUrl}|}" src="#" alt="photo"/>
+    <td th:text="|${photo.photoName}|">Wakacyjna</td>
+    <td><img th:src="@{|/user-photos/${photo.imgUrl}|}" src="#" alt="photo"/></td>
+    <td>
+<!--        <form action="#" th:action="@{'/deletePhoto/{id}'(id=${photo.id})}" th:method="delete" >-->
+        <a href="#" th:href="@{|/deletePhoto/${photo.id}|}">
+            <button class="button button2">Usuń</button></a>
+<!--        <button type="submit">Delete</button>-->
+<!--        </form>-->
+    </td>
 <!--    <img th:src="@{|/user-photos/${photo.getImgUrl()}|}" src="/src/main/resources/static/img/agency.jpeg" alt="photo"/>-->
 <!--    <img th:src="@{|/user-photos/${imgUrl}|}" src="/src/main/resources/static/img/agency.jpeg" alt="photo"/>-->
+</tr>
+</table>
 
 </div>
 
