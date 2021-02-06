@@ -19,29 +19,32 @@
 <!--            Photo Name</div></a>-->
 <!--</div>-->
 
-<div th:text="|Imie usera:   ${username}|" > imie usera
+<div class="bigTitle">
+    <div class="title" th:text="|Autor galerii:   ${username}|" >
+    </div>
+
+    <div class="title" th:text="|Index galerii:   ${galleryId}|" >
+    </div>
 </div>
 
-<div th:text="|Id galerii:   ${galleryId}|" > id galerii
-</div>
+<hr>
 
 <div>
-<table>
+    <table>
 
-    <tr>
-        <th>Nazwa zdjęcia</th>
-        <th>Zdjęcie</th>
-    </tr>
+        <tr>
+            <th>Nazwa zdjęcia</th>
+            <th>Zdjęcie</th>
+        </tr>
 
-<tr th:each="photo : ${photos}">
+        <tr th:each="photo : ${photos}">
 
-<!--    <img th:src="@{|/user-photos/agency.jpeg|}" src="/src/main/resources/static/img/agency.jpeg" alt="photo"/>-->
-    <td th:text="|${photo.photoName}|">Wakacyjna</td>
-    <td><img th:src="@{|/user-photos/${photo.imgUrl}|}" src="#" alt="photo"/></td>
-<!--    <img th:src="@{|/user-photos/${photo.getImgUrl()}|}" src="/src/main/resources/static/img/agency.jpeg" alt="photo"/>-->
-<!--    <img th:src="@{|/user-photos/${imgUrl}|}" src="/src/main/resources/static/img/agency.jpeg" alt="photo"/>-->
-</tr>
-</table>
+            <!--    <img th:src="@{|/user-photos/agency.jpeg|}" src="/src/main/resources/static/img/agency.jpeg" alt="photo"/>-->
+            <td th:text="|${photo.photoName}|">Wakacyjna</td>
+            <td><img th:src="@{|/user-photos/${photo.imgUrl}|}" src="#" alt="photo"/></td>
+
+        </tr>
+    </table>
 
 </div>
 

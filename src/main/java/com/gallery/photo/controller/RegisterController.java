@@ -82,7 +82,7 @@ public class RegisterController {
 
         userService.saveUser(userDTO);
 
-        return "login";
+        return "redirect:/";
 
     }
 
