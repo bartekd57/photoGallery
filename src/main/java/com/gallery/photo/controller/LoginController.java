@@ -10,7 +10,6 @@ import com.gallery.photo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -64,7 +63,6 @@ public class LoginController {
     }
 
 
-//    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public String login(@ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         Authentication authentication = manager.authenticate(
@@ -75,11 +73,22 @@ public class LoginController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = provider.generateToken(authentication);
         redirectAttributes.addFlashAttribute("user", userDTO);
-        return "redirect:/photos";
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String role = auth.getAuthorities().toString();
+
+        String targetUrl = "";
+        if(role.contains("ADMIN")) {
+            targetUrl = "redirect:/users";
+        } else if(role.contains("USER")) {
+            targetUrl = "redirect:/photos";
+        }
+        return targetUrl;
+
+//        return "redirect:/photos";
     }
 
 
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping(value = "/photos")
     public String pictures(@ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult, Model model) throws Exception {
 
@@ -92,9 +101,6 @@ public class LoginController {
         model.addAttribute("galleryId", user.getGallery().getId());
         model.addAttribute("username", user.getUsername());
         model.addAttribute("imgUrl", user.getGallery().getPhotos().stream().findFirst().map(photo -> photo.getImgUrl()).get());
-
-
-//        if(userDTO.getRoles().contains(RoleName.ROLE_ADMIN)) return "redirect:/users";
 
         return "photos";
 
