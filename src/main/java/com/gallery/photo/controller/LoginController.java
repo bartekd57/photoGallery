@@ -10,6 +10,7 @@ import com.gallery.photo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -48,7 +49,7 @@ public class LoginController {
     }
 
     @ResponseBody
-    @PostMapping("/login")
+    @PostMapping("/logino")
     public ResponseEntity getTokenForUser(@RequestBody LoginDTO loginDTO){
 
         Authentication authentication =
@@ -62,6 +63,8 @@ public class LoginController {
 
     }
 
+
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public String login(@ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         Authentication authentication = manager.authenticate(
@@ -75,6 +78,8 @@ public class LoginController {
         return "redirect:/photos";
     }
 
+
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping(value = "/photos")
     public String pictures(@ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult, Model model) throws Exception {
 

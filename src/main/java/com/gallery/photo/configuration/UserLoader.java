@@ -33,7 +33,7 @@ public class UserLoader implements ApplicationRunner {
 
         Set<Role> roles = new HashSet<>();
         Role role= new Role();
-        role.setName(RoleName.ROLE_ADMIN);
+        role.setName(RoleName.ADMIN );
         roles.add(role);
         User user = new User("admin", "admin@gmail.com", roles);
         user.setPassword(passwordEncoder.encode("admin123"));
@@ -42,7 +42,7 @@ public class UserLoader implements ApplicationRunner {
 
         Set<Role> userRoles1 = new HashSet<>();
         Role userRole1 = new Role();
-        userRole1.setName(RoleName.ROLE_USER);
+        userRole1.setName(RoleName.USER);
         userRoles1.add(userRole1);
 
         User user1 = new User("user1",  "user1@gmail.com", userRoles1);
@@ -59,7 +59,7 @@ public class UserLoader implements ApplicationRunner {
 
         Set<Role> userRoles2 = new HashSet<>();
         Role userRole2 = new Role();
-        userRole2.setName(RoleName.ROLE_USER);
+        userRole2.setName(RoleName.USER);
         userRoles2.add(userRole2);
 
         User user2 = new User("user2", "user2@gmail.com", userRoles2);

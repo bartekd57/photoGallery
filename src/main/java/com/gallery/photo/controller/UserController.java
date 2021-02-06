@@ -2,7 +2,6 @@ package com.gallery.photo.controller;
 
 import com.gallery.photo.model.Gallery;
 import com.gallery.photo.model.Photo;
-import com.gallery.photo.model.RoleName;
 import com.gallery.photo.model.dto.UserDTO;
 import com.gallery.photo.repository.GalleryRepository;
 import com.gallery.photo.service.UserService;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -30,11 +28,10 @@ public class UserController {
         this.galleryRepository = galleryRepository;
     }
 
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/users")
     public String users(Model model) {
-        List<UserDTO> users = userService.getAllUsers().stream()
-                .filter(userDTO -> userDTO.getRoles().contains(RoleName.ROLE_USER)).collect(Collectors.toList());
+        List<UserDTO> users = userService.getAllUsers();
 
         model.addAttribute("users", users);
         return "users";
