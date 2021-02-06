@@ -55,6 +55,8 @@ public class UserController {
         Gallery gallery = user.getGallery();
         List<Photo> photos = gallery.getPhotos();
         model.addAttribute("photos", photos);
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("galleryId", user.getGallery().getId());
         return "photos";
     }
 

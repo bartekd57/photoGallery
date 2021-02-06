@@ -19,6 +19,11 @@
 <!--            Photo Name</div></a>-->
 <!--</div>-->
 
+<div th:text="|Imie usera:   ${username}|" > imie usera
+</div>
+
+<div th:text="|Id galerii:   ${galleryId}|" > id galerii
+</div>
 
 <div th:each="photo : ${photos}">
 
@@ -29,11 +34,6 @@
 
 </div>
 
-<div th:text="|Imie usera:   ${username}|" > imie usera
-</div>
-
-<div th:text="|Id galerii:   ${galleryId}|" > id galerii
-</div>
 
 
 
