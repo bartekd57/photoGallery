@@ -1,5 +1,6 @@
 package com.gallery.photo.controller;
 
+import com.gallery.photo.model.Photo;
 import com.gallery.photo.model.User;
 import com.gallery.photo.model.dto.UserDTO;
 import com.gallery.photo.security.DTO.JwtTokenDTO;
@@ -9,6 +10,7 @@ import com.gallery.photo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,6 +24,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class LoginController {
@@ -44,7 +49,7 @@ public class LoginController {
     }
 
     @ResponseBody
-    @PostMapping("/login")
+    @PostMapping("/logino")
     public ResponseEntity getTokenForUser(@RequestBody LoginDTO loginDTO){
 
         Authentication authentication =
@@ -58,6 +63,8 @@ public class LoginController {
 
     }
 
+
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public String login(@ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         Authentication authentication = manager.authenticate(
@@ -71,14 +78,17 @@ public class LoginController {
         return "redirect:/photos";
     }
 
+
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping(value = "/photos")
     public String pictures(@ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult, Model model) throws Exception {
 
 //        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         User user = userService.getUserByUsername(userDTO.getUsername());
+        List<Photo> photos = user.getGallery().getPhotos().stream().distinct().collect(Collectors.toList());
 
-        model.addAttribute("photos", user.getGallery().getPhotos());
+        model.addAttribute("photos", photos);
         model.addAttribute("galleryId", user.getGallery().getId());
         model.addAttribute("username", user.getUsername());
         model.addAttribute("imgUrl", user.getGallery().getPhotos().stream().findFirst().map(photo -> photo.getImgUrl()).get());
