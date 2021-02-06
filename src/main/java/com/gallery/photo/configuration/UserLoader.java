@@ -43,7 +43,6 @@ public class UserLoader implements ApplicationRunner {
         user.getGallery().setPhotos(photos);
         userRepository.save(user);
 
-
         Set<Role> userRoles1 = new HashSet<>();
         Role userRole1 = new Role();
         userRole1.setName(RoleName.USER);
