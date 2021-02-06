@@ -7,7 +7,6 @@ import com.gallery.photo.model.mapper.PhotoMapper;
 import com.gallery.photo.repository.PhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class PhotoService {
@@ -31,5 +30,7 @@ public class PhotoService {
 
         photoRepository.save(photo);
     }
+
+
 
 }

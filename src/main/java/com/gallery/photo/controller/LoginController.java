@@ -41,7 +41,7 @@ public class LoginController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/login")
+    @GetMapping(value = "/")
     public String loginGet(Model model) {
         model.addAttribute("user", new UserDTO());
         return "login";
