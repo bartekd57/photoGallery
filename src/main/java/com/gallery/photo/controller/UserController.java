@@ -4,12 +4,14 @@ import com.gallery.photo.model.Gallery;
 import com.gallery.photo.model.Photo;
 import com.gallery.photo.model.dto.UserDTO;
 import com.gallery.photo.repository.GalleryRepository;
+import com.gallery.photo.repository.PhotoRepository;
 import com.gallery.photo.service.UserService;
 import com.gallery.photo.utils.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +28,7 @@ public class UserController {
 
     UserService userService;
     GalleryRepository galleryRepository;
+    PhotoRepository photoRepository;
 
     static int counter = 0;
 
@@ -84,6 +87,13 @@ public class UserController {
         userService.saveUser(userDTO);
 
         return "redirect:/userGallery/"+ id;
+    }
+
+    @DeleteMapping("/deletePhoto/{id}")
+    public String deletePhoto(@PathVariable Long id) {
+        photoRepository.deleteById(id);
+        Long userId = photoRepository.findById(id).orElse(null).getGallery().getUser().getId();
+        return "redirect:/userGallery/"+ userId;
     }
 
 
