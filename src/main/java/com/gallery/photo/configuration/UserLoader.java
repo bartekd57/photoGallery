@@ -43,14 +43,14 @@ public class UserLoader implements ApplicationRunner {
         user.getGallery().setPhotos(photos);
         userRepository.save(user);
 
-
         Set<Role> userRoles1 = new HashSet<>();
         Role userRole1 = new Role();
         userRole1.setName(RoleName.USER);
         userRoles1.add(userRole1);
 
-        User user1 = new User("user1",  "user1@gmail.com", userRoles1);
-        user1.setPassword(passwordEncoder.encode("pass1"));
+
+        User user1 = new User("user2",  "user2@gmail.com", userRoles1);
+        user1.setPassword(passwordEncoder.encode("pass2"));
         user1.setGallery(new Gallery("gallery2"));
         List<Photo> photos1 = new ArrayList<>();
 
