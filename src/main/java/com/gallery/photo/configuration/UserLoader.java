@@ -37,7 +37,7 @@ public class UserLoader implements ApplicationRunner {
         roles.add(role);
         User user = new User("admin", "admin@gmail.com", roles);
         user.setPassword(passwordEncoder.encode("admin123"));
-        user.setGallery(new Gallery("gallery0"));
+        user.setGallery(new Gallery("gallery1"));
         List<Photo> photos = new ArrayList<>();
         photos.add(new Photo("photo0", "0.jpeg", user.getGallery()));
         user.getGallery().setPhotos(photos);
@@ -66,9 +66,9 @@ public class UserLoader implements ApplicationRunner {
         userRole2.setName(RoleName.USER);
         userRoles2.add(userRole2);
 
-        User user2 = new User("user2", "user2@gmail.com", userRoles2);
-        user2.setPassword(passwordEncoder.encode("pass2"));
-        user2.setGallery(new Gallery("gallery2"));
+        User user2 = new User("user3", "user3@gmail.com", userRoles2);
+        user2.setPassword(passwordEncoder.encode("pass3"));
+        user2.setGallery(new Gallery("gallery3"));
         List<Photo> photos2 = new ArrayList<>();
         photos2.add(new Photo("photo4", "4.jpeg", user2.getGallery()));
         photos2.add(new Photo("photo5", "5.jpeg", user2.getGallery()));

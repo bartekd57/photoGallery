@@ -81,13 +81,29 @@ public class LoginController {
         if(role.contains("ADMIN")) {
             targetUrl = "redirect:/users";
         } else if(role.contains("USER")) {
-            targetUrl = "redirect:/photos";
+            targetUrl = "redirect:/photosForUser";
         }
         return targetUrl;
 
 //        return "redirect:/photos";
     }
 
+    @GetMapping(value = "/photosForUser")
+    public String picturesForUser(@ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult, Model model) throws Exception {
+
+//        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userService.getUserByUsername(userDTO.getUsername());
+        List<Photo> photos = user.getGallery().getPhotos().stream().distinct().collect(Collectors.toList());
+
+        model.addAttribute("photos", photos);
+        model.addAttribute("galleryId", user.getGallery().getId());
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("imgUrl", user.getGallery().getPhotos().stream().findFirst().map(photo -> photo.getImgUrl()).get());
+
+        return "photosForUser";
+
+    }
 
     @GetMapping(value = "/photos")
     public String pictures(@ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult, Model model) throws Exception {
